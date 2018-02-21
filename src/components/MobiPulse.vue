@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet/dist/leaflet';
 
+import { mapboxKey } from '@/assets/keys';
 import stations from '@/assets/stations';
 import GooglemapService from '@/services/googlemap-service';
 
@@ -24,7 +25,7 @@ L.Icon.Default.mergeOptions({
 });
 // END hack for Leaflet
 
-const accessToken = 'ENTER_MAPBOX_API_KEY';
+const accessToken = mapboxKey;
 
 export default {
   data() {

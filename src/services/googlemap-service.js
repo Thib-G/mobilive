@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const key = 'ENTER_API_KEY';
+import { gmapsKey } from '@/assets/keys';
+
+const key = gmapsKey;
 
 export default {
   getDistanceMatrix(origins, destinations, mode = 'driving') {

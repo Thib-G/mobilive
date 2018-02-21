@@ -1,0 +1,3 @@
+// Rename to index.js and replace with your own Google Maps and Mapbox keys:
+export const gmapsKey = 'YOUR_GOOGLE_MAPS_KEY';
+export const mapboxKey = 'YOUR_MAPBOX_KEY';
