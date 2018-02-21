@@ -24,7 +24,7 @@ L.Icon.Default.mergeOptions({
 });
 // END hack for Leaflet
 
-const accessToken = 'pk.eyJ1IjoidGhpYmF1dGciLCJhIjoiMzg5MzQzOGMwYTJmOGNlODRkYzJjMDc5ZDEwNjNkOTEifQ.YPJ4ALWlOKnLPeaS5Ose7g';
+const accessToken = 'ENTER_MAPBOX_API_KEY';
 
 export default {
   data() {
