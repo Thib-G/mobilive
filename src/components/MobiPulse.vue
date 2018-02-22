@@ -59,6 +59,18 @@ export default {
             { car: this.distanceMatrixCar[index] },
             { train: this.distanceMatrixTrain[index] },
           );
+          const trainDuration = stationWithMarker.train.duration
+            ? stationWithMarker.train.duration.value
+            : 0;
+          const carDuration = stationWithMarker.car.duration
+            ? stationWithMarker.car.duration.value
+            : 0;
+          const trainDistance = stationWithMarker.train.distance
+            ? stationWithMarker.train.distance.value
+            : 0;
+          const carDistance = stationWithMarker.car.distance
+            ? stationWithMarker.car.distance.value
+            : 0;
           stationWithMarker.marker.getPopup().setContent(`
             <h4>${station.name}</h4>
             <table>
@@ -70,12 +82,12 @@ export default {
               </thead>
               <tbody>
                 <tr>
-                  <td>${Math.round(stationWithMarker.train.duration.value / 60)} min</td>
-                  <td>${Math.round(stationWithMarker.car.duration.value / 60)} min</td>
+                  <td>${Math.round(trainDuration / 60)} min</td>
+                  <td>${Math.round(carDuration / 60)} min</td>
                 </tr>
                 <tr>
-                  <td>${Math.round(stationWithMarker.train.distance.value / 1000)} km</td>
-                  <td>${Math.round(stationWithMarker.car.distance.value / 1000)} km</td>
+                  <td>${Math.round(trainDistance / 1000)} km</td>
+                  <td>${Math.round(carDistance / 1000)} km</td>
                 </tr>
               </tbody>
             </table>
