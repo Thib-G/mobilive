@@ -16,10 +16,7 @@ import FloatingMenu from '@/components/FloatingMenu';
 import { mapboxKey } from '@/assets/keys';
 import stations from '@/assets/stations';
 import GooglemapService from '@/services/googlemap-service';
-import polyCoords15 from '@/assets/isochrones/15min';
-import polyCoords30 from '@/assets/isochrones/30min';
-import polyCoords45 from '@/assets/isochrones/45min';
-import polyCoords60 from '@/assets/isochrones/60min';
+import { polyCoords15, polyCoords30, polyCoords45, polyCoords60 } from '@/assets/isochrones';
 
 // Hack for Leaflet
 // eslint-disable-next-line
