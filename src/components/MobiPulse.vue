@@ -1,5 +1,9 @@
 <template>
-  <div class="map"></div>
+  <div class="map-wrapper">
+    <div class="map" ref="map">
+    </div>
+    <floating-menu :polygons="polygons" />
+  </div>
 </template>
 
 <script>
@@ -7,9 +11,15 @@ import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet/dist/leaflet';
 
+import FloatingMenu from '@/components/FloatingMenu';
+
 import { mapboxKey } from '@/assets/keys';
 import stations from '@/assets/stations';
 import GooglemapService from '@/services/googlemap-service';
+import polyCoords15 from '@/assets/isochrones/15min';
+import polyCoords30 from '@/assets/isochrones/30min';
+import polyCoords45 from '@/assets/isochrones/45min';
+import polyCoords60 from '@/assets/isochrones/60min';
 
 // Hack for Leaflet
 // eslint-disable-next-line
@@ -25,6 +35,9 @@ L.Icon.Default.mergeOptions({
 });
 // END hack for Leaflet
 
+// const iso4app = window.iso4app;
+// const isoEngine = new iso4app.Engine();
+
 const accessToken = mapboxKey;
 
 export default {
@@ -39,12 +52,21 @@ export default {
       googlemapService: GooglemapService,
       distanceMatrixCar: [],
       distanceMatrixTrain: [],
+      isoline: {},
+      isoGroup: new L.LayerGroup(),
+      polygons: [
+        { minutes: 15, coords: polyCoords15, visible: true },
+        { minutes: 30, coords: polyCoords30, visible: true },
+        { minutes: 45, coords: polyCoords45, visible: true },
+        { minutes: 60, coords: polyCoords60, visible: true },
+      ],
     };
   },
   mounted() {
     this.initMap();
     this.updateMarkers();
     this.getDistanceMatrix();
+    this.updateIsochrones();
   },
   computed: {
     stationsMarkers() {
@@ -101,15 +123,19 @@ export default {
     stationsMarkers() {
       this.updateMarkers();
     },
+    polygons: {
+      handler: 'updateIsochrones',
+      deep: true,
+    },
   },
   methods: {
     initMap() {
-      this.map = L.map(this.$el);
+      this.map = L.map(this.$refs.map);
 
       this.map.setView(this.belgiumCenterLatLng, 8);
 
       L.tileLayer(`https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=${accessToken}`, {
-        attribution: `&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a> 
+        attribution: `&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>
           &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
           &copy; Google API Services`,
       }).addTo(this.map);
@@ -120,6 +146,7 @@ export default {
         .openPopup();
 
       this.markersGroup.addTo(this.map);
+      this.isoGroup.addTo(this.map);
     },
     updateMarkers() {
       this.markersGroup.clearLayers();
@@ -139,12 +166,26 @@ export default {
         this.distanceMatrixTrain = matrix.map(x => x.elements[0]);
       });
     },
+    updateIsochrones() {
+      this.isoGroup.clearLayers();
+      this.polygons
+        .filter(x => x.visible)
+        .sort((a, b) => b - a)
+        .forEach((polygon) => {
+          const newLayer = L.polygon(polygon.coords, { color: '#0066cc', fillOpacity: 0.2, weight: 2 });
+          newLayer.on('click', () => Object.assign(polygon, { visible: false }));
+          this.isoGroup.addLayer(newLayer);
+        });
+    },
+  },
+  components: {
+    FloatingMenu,
   },
 };
 </script>
 
 <style scoped>
-  .map {
+  .map-wrapper, .map {
     height: 100%;
     width: 100%;
   }
