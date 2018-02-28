@@ -2,7 +2,7 @@
   <div class="map-wrapper">
     <div class="map" ref="map">
     </div>
-    <floating-menu :polygons="polygons" />
+    <floating-menu :polygons="polygons" :irail="irail" />
   </div>
 </template>
 
@@ -13,9 +13,11 @@ import L from 'leaflet/dist/leaflet';
 
 import FloatingMenu from '@/components/FloatingMenu';
 
+import GooglemapService from '@/services/googlemap-service';
+import IRailService from '@/services/irail-service';
+
 import { mapboxKey } from '@/assets/keys';
 import stations from '@/assets/stations';
-import GooglemapService from '@/services/googlemap-service';
 import { polyCoords15, polyCoords30, polyCoords45, polyCoords60 } from '@/assets/isochrones';
 
 // Hack for Leaflet
@@ -46,7 +48,10 @@ export default {
       stations,
       map: {},
       markersGroup: new L.LayerGroup(),
+      iRailMarkersGroup: new L.LayerGroup(),
       googlemapService: GooglemapService,
+      iRailService: IRailService,
+      irail: { isIRailVisible: false },
       distanceMatrixCar: [],
       distanceMatrixTrain: [],
       isoline: {},
@@ -57,6 +62,7 @@ export default {
         { minutes: 45, coords: polyCoords45, visible: true },
         { minutes: 60, coords: polyCoords60, visible: true },
       ],
+      iRailStations: [],
     };
   },
   mounted() {
@@ -115,10 +121,21 @@ export default {
         return stationWithMarker;
       });
     },
+    iRailStationsMarkers() {
+      return this.iRailStations.map((station) => {
+        const popup = L.popup({ autoClose: false }).setContent(station.standardname);
+        const marker = L.marker([station.locationY, station.locationX]).bindPopup(popup);
+        return Object.assign({}, station, { marker });
+      });
+    },
   },
   watch: {
     stationsMarkers() {
       this.updateMarkers();
+    },
+    irail: {
+      handler: 'updateIRailMarkers',
+      deep: true,
     },
     polygons: {
       handler: 'updateIsochrones',
@@ -143,12 +160,23 @@ export default {
         .openPopup();
 
       this.markersGroup.addTo(this.map);
+      this.iRailMarkersGroup.addTo(this.map);
       this.isoGroup.addTo(this.map);
     },
     updateMarkers() {
       this.markersGroup.clearLayers();
       this.stationsMarkers.forEach((station) => {
         this.markersGroup.addLayer(station.marker);
+      });
+    },
+    updateIRailMarkers() {
+      this.iRailMarkersGroup.clearLayers();
+      this.getIRailStations().then(() => {
+        if (this.irail.isIRailVisible) {
+          this.iRailStationsMarkers.forEach((station) => {
+            this.iRailMarkersGroup.addLayer(station.marker);
+          });
+        }
       });
     },
     getDistanceMatrix() {
@@ -173,6 +201,11 @@ export default {
           newLayer.on('click', () => Object.assign(polygon, { visible: false }));
           this.isoGroup.addLayer(newLayer);
         });
+    },
+    getIRailStations() {
+      return this.iRailService.getAllStations().then((data) => {
+        this.iRailStations = data;
+      });
     },
   },
   components: {

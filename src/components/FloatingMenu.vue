@@ -16,13 +16,17 @@
       <p>
         <small>* only for car. <br />&copy; <a href="https://iso4app.net/">iso4app</a></small>
       </p>
+      <h4>iRail stations</h4>
+      <p>
+        <input type="checkbox" v-model="irail.isIRailVisible" /> show
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['polygons'],
+  props: ['polygons', 'irail'],
   data() {
     return {
       collapsed: false,
@@ -47,7 +51,7 @@ export default {
     position: fixed;
     background-color: rgba(255, 255, 255, 0.7);
     padding: 5px;
-    width: 100px;
+    width: 120px;
     top: 10px;
     right: 10px;
     z-index: 999;
