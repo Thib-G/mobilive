@@ -57,10 +57,10 @@ export default {
       isoline: {},
       isoGroup: new L.LayerGroup(),
       polygons: [
-        { minutes: 15, coords: polyCoords15, visible: true },
-        { minutes: 30, coords: polyCoords30, visible: true },
-        { minutes: 45, coords: polyCoords45, visible: true },
-        { minutes: 60, coords: polyCoords60, visible: true },
+        { minutes: 15, coords: polyCoords15, visible: false },
+        { minutes: 30, coords: polyCoords30, visible: false },
+        { minutes: 45, coords: polyCoords45, visible: false },
+        { minutes: 60, coords: polyCoords60, visible: false },
       ],
       iRailStations: [],
     };
