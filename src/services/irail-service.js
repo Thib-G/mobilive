@@ -20,4 +20,19 @@ export default {
       });
     return this.stationsPromise;
   },
+  getConnection(from, to) {
+    const params = Object.assign({}, options.params, {
+      from,
+      to,
+      timesel: 'departure',
+      typeOfTransport: 'trains',
+      results: 1,
+    });
+    return axios.get(`${IRAIL_URL}/connections/`, { params })
+      .then(response => response.data.connection)
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.log(error);
+      });
+  },
 };

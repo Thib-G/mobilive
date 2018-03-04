@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import MobiPulse from '@/components/MobiPulse';
+import MobiLive from '@/components/MobiLive';
 
 Vue.use(Router);
 
@@ -9,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MobiPulse',
-      component: MobiPulse,
+      name: 'MobiLive',
+      component: MobiLive,
     },
   ],
 });
