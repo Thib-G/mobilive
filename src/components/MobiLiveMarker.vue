@@ -37,7 +37,9 @@ export default {
     popupContent() {
       return `
         <div style="width: 150px">
-          <h4>${this.theStation.name}</h4>
+          <h4>${this.theStation.name}
+          <br />&nbsp;&nbsp;<span class="destination">
+          <i class="fas fa-arrow-circle-right"></i> Brussel-Central</span></h4>
           <hr />
           <h3><img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" /> iRail</h3>
           <p><i class="fas fa-train"></i> <b>${this.trainDuration || '...'}</b> min
