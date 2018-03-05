@@ -46,9 +46,14 @@ export default {
           </p>
           <hr />
           <h3><i class="fab fa-google"></i> Google Maps</h3>
-          <p><i class="fas fa-car"></i> <b>${this.carDuration || '...'}</b> min</p>
+          <p><i class="fas fa-car"></i> <b>${this.carDuration || '...'}</b> min
+          <a href="${this.gmapsUrl}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+          </p>
         </div>
       `;
+    },
+    gmapsUrl() {
+      return `https://www.google.com/maps/dir/?api=1&origin=${this.theStation.latlng.join(',')}&destination=${this.bxlCentralLatLng.join(',')}`;
     },
   },
   methods: {
