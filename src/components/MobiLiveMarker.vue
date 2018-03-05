@@ -41,7 +41,7 @@ export default {
           <hr />
           <h3><img src="static/img/irail-logo.svg" alt="iRail logo" width="20%" height="20%" /> iRail</h3>
           <p><i class="fas fa-train"></i> <b>${this.trainDuration || '...'}</b> min
-          @ ${this.trainDeparture ? this.trainDeparture.toFormat('hh:mm') : '...'} 
+          @ ${this.trainDeparture ? this.trainDeparture.toFormat('H:mm') : '...'} 
           ${this.trainUrl ? `<a href="${this.trainUrl}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : ''}      
           </p>
           <hr />
