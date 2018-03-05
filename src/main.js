@@ -1,4 +1,7 @@
+// IE11 polyfills
 import 'core-js/fn/promise';
+import 'core-js/fn/object/assign';
+import 'core-js/fn/number/is-nan';
 
 import '@/assets/style/app.css';
 
