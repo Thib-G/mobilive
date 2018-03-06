@@ -3,7 +3,30 @@
     :key="theStation.name"
     :lat-lng="theStation.latlng"
     @l-popupopen="getTimes">
-  <v-popup :content="popupContent" />
+    <v-popup>
+      <div style="width: 150px">
+        <h4>{{ theStation.name }}
+        <br />&nbsp;&nbsp;<span class="destination">
+        <i class="fas fa-arrow-circle-right"></i> Brussel-Central</span></h4>
+        <hr />
+        <h3>
+          <img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" />
+          iRail
+        </h3>
+        <p><i class="fas fa-train"></i> <b>{{ trainDuration || '...' }}</b> min
+        @ <span v-if="trainDeparture">{{ trainDeparture.toFormat('H:mm') }}</span>
+          <span v-else>...</span>
+          <span v-if="trainUrl">
+            <a :href="trainUrl" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+          </span>
+        </p>
+        <hr />
+        <h3><i class="fab fa-google"></i> Google Maps</h3>
+        <p><i class="fas fa-car"></i> <b>{{ carDuration || '...' }}</b> min
+        <a :href="gmapsUrl" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+        </p>
+      </div>
+    </v-popup>
   </v-marker>
 </template>
 
@@ -34,26 +57,6 @@ export default {
     };
   },
   computed: {
-    popupContent() {
-      return `
-        <div style="width: 150px">
-          <h4>${this.theStation.name}
-          <br />&nbsp;&nbsp;<span class="destination">
-          <i class="fas fa-arrow-circle-right"></i> Brussel-Central</span></h4>
-          <hr />
-          <h3><img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" /> iRail</h3>
-          <p><i class="fas fa-train"></i> <b>${this.trainDuration || '...'}</b> min
-          @ ${this.trainDeparture ? this.trainDeparture.toFormat('H:mm') : '...'} 
-          ${this.trainUrl ? `<a href="${this.trainUrl}" target="_blank"><i class="fas fa-external-link-alt"></i></a>` : ''}      
-          </p>
-          <hr />
-          <h3><i class="fab fa-google"></i> Google Maps</h3>
-          <p><i class="fas fa-car"></i> <b>${this.carDuration || '...'}</b> min
-          <a href="${this.gmapsUrl}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-          </p>
-        </div>
-      `;
-    },
     gmapsUrl() {
       return `https://www.google.com/maps/dir/?api=1&origin=${this.theStation.latlng.join(',')}&destination=${this.bxlCentralLatLng.join(',')}`;
     },
