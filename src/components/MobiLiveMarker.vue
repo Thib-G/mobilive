@@ -7,23 +7,23 @@
       <div style="width: 150px">
         <h4>{{ theStation.name }}
         <br />&nbsp;&nbsp;<span class="destination">
-        <i class="fas fa-arrow-circle-right"></i> Brussel-Central</span></h4>
+        <font-awesome-icon icon="arrow-circle-right" /> Brussel-Central</span></h4>
         <hr />
         <h3>
           <img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" />
           iRail
         </h3>
-        <p><i class="fas fa-train"></i> <b>{{ trainDuration || '...' }}</b> min
+        <p><font-awesome-icon icon="train" /> <b>{{ trainDuration || '...' }}</b> min
         @ <span v-if="trainDeparture">{{ trainDeparture.toFormat('H:mm') }}</span>
           <span v-else>...</span>
           <span v-if="trainUrl">
-            <a :href="trainUrl" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+            <a :href="trainUrl" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
           </span>
         </p>
         <hr />
-        <h3><i class="fab fa-google"></i> Google Maps</h3>
-        <p><i class="fas fa-car"></i> <b>{{ carDuration || '...' }}</b> min
-        <a :href="gmapsUrl" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+        <h3><font-awesome-icon :icon="['fab', 'google']" /> Google Maps</h3>
+        <p><font-awesome-icon icon="car" /> <b>{{ carDuration || '...' }}</b> min
+        <a :href="gmapsUrl" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
         </p>
       </div>
     </v-popup>

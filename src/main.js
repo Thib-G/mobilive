@@ -8,6 +8,15 @@ import '@/assets/style/app.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
+// FontAwesome 1
+import fontawesome from '@fortawesome/fontawesome';
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import faGoogle from '@fortawesome/fontawesome-free-brands/faGoogle';
+import faTrain from '@fortawesome/fontawesome-free-solid/faTrain';
+import faCar from '@fortawesome/fontawesome-free-solid/faCar';
+import faArrowCircleRight from '@fortawesome/fontawesome-free-solid/faArrowCircleRight';
+import faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
@@ -29,6 +38,10 @@ L.Icon.Default.mergeOptions({
 // END hack for Leaflet
 
 Vue.config.productionTip = false;
+
+// FontAwesome 2
+fontawesome.library.add(faGoogle, faTrain, faCar, faExternalLinkAlt, faArrowCircleRight);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 /* eslint-disable no-new */
 new Vue({
