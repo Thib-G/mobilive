@@ -49,10 +49,10 @@ export default {
       theStation: Object.assign({}, this.station),
       iRailService: IRailService,
       googlemapService: GooglemapService,
-      trainDuration: null,
-      trainDeparture: null,
-      trainUrl: null,
-      carDuration: null,
+      trainDuration: undefined,
+      trainDeparture: undefined,
+      trainUrl: undefined,
+      carDuration: undefined,
       bxlCentralLatLng: [50.84551, 4.35684],
     };
   },
@@ -67,6 +67,9 @@ export default {
       this.getGMaps();
     },
     getIRail() {
+      if (this.trainDuration) {
+        return;
+      }
       this.iRailService.getConnection(this.theStation.name, 'Bruxelles-Central')
         .then((data) => {
           this.trainDuration = Math.round(data[0].duration / 60);
@@ -76,6 +79,9 @@ export default {
         });
     },
     getGMaps() {
+      if (this.carDuration) {
+        return;
+      }
       const origins = [this.theStation.latlng.join(',')];
       const destinations = [this.bxlCentralLatLng.join(',')];
       this.googlemapService.getDistanceMatrix(origins, destinations, 'driving')

@@ -6,7 +6,7 @@ const options = {
 };
 
 export default {
-  stationsPromise: null,
+  stationsPromise: undefined,
   getAllStations() {
     // return cached Promise if not null
     if (this.stationsPromise) {
