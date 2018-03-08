@@ -4,7 +4,7 @@
     :lat-lng="theStation.latlng"
     @l-popupopen="getTimes">
     <v-popup>
-      <div style="width: 150px">
+      <div class="mobilive-popup">
         <h4>{{ theStation.name }}
         <br />&nbsp;&nbsp;<span class="grey">
         <font-awesome-icon icon="arrow-circle-right" /> Brussel-Central</span></h4>
@@ -102,3 +102,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .mobilive-popup {
+    width: 165px;
+  }
+</style>
