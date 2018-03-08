@@ -6,19 +6,24 @@
     <v-popup>
       <div style="width: 150px">
         <h4>{{ theStation.name }}
-        <br />&nbsp;&nbsp;<span class="destination">
+        <br />&nbsp;&nbsp;<span class="grey">
         <font-awesome-icon icon="arrow-circle-right" /> Brussel-Central</span></h4>
         <hr />
         <h3>
           <img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" />
           iRail
         </h3>
-        <p><font-awesome-icon icon="train" /> <b>{{ trainDuration || '...' }}</b> min
-        @ <span v-if="trainDeparture">{{ trainDeparture.toFormat('H:mm') }}</span>
-          <span v-else>...</span>
-          <span v-if="trainUrl">
-            <a :href="trainUrl" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
-          </span>
+        <p>
+        <span v-if="trains.length > 0" v-for="train in trains" :key="train.uri">
+          <font-awesome-icon icon="train" /> <b>{{ train.duration }}</b> min
+          @ {{ train.departure.toFormat('H:mm') }}
+          <small><span class="grey">{{ train.nr }}</span></small>
+          <a :href="train.uri" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
+          <br />
+        </span>
+        <span v-if="trains.length === 0" v-for="index in 3" :key="index">
+          <font-awesome-icon icon="train" /> ... <br />
+        </span>
         </p>
         <hr />
         <h3><font-awesome-icon :icon="['fab', 'google']" /> Google Maps</h3>
@@ -49,9 +54,7 @@ export default {
       theStation: Object.assign({}, this.station),
       iRailService: IRailService,
       googlemapService: GooglemapService,
-      trainDuration: undefined,
-      trainDeparture: undefined,
-      trainUrl: undefined,
+      trains: [],
       carDuration: undefined,
       bxlCentralLatLng: [50.84551, 4.35684],
     };
@@ -72,10 +75,13 @@ export default {
       }
       this.iRailService.getConnection(this.theStation.name, 'Bruxelles-Central')
         .then((data) => {
-          this.trainDuration = Math.round(data[0].duration / 60);
-          this.trainDeparture = DateTime.fromMillis(data[0].departure.time * 1000);
-          const trainUrl = data[0].departure.departureConnection;
-          this.trainUrl = trainUrl.replace('http', 'https');
+          const trains = data.slice(0, 3).map(train => ({
+            duration: Math.round(train.duration / 60),
+            departure: DateTime.fromMillis(train.departure.time * 1000),
+            uri: train.departure.departureConnection.replace('http', 'https'),
+            nr: train.departure.vehicle.replace('BE.NMBS.', ''),
+          }));
+          this.trains = trains;
         });
     },
     getGMaps() {
