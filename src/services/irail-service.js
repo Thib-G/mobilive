@@ -26,7 +26,7 @@ export default {
       to,
       timesel: 'departure',
       typeOfTransport: 'trains',
-      results: 1,
+      results: 3,
     });
     return axios.get(`${IRAIL_URL}/connections/`, { params })
       .then(response => response.data.connection)

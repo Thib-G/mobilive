@@ -70,7 +70,7 @@ export default {
       this.getGMaps();
     },
     getIRail() {
-      if (this.trainDuration) {
+      if (this.trains.length > 0) {
         return;
       }
       this.iRailService.getConnection(this.theStation.name, 'Bruxelles-Central')
