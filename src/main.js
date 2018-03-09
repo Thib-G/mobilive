@@ -16,6 +16,7 @@ import faTrain from '@fortawesome/fontawesome-free-solid/faTrain';
 import faCar from '@fortawesome/fontawesome-free-solid/faCar';
 import faArrowCircleRight from '@fortawesome/fontawesome-free-solid/faArrowCircleRight';
 import faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
 
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
@@ -40,7 +41,14 @@ L.Icon.Default.mergeOptions({
 Vue.config.productionTip = false;
 
 // FontAwesome 2
-fontawesome.library.add(faGoogle, faTrain, faCar, faExternalLinkAlt, faArrowCircleRight);
+fontawesome.library.add(
+  faGoogle,
+  faTrain,
+  faCar,
+  faExternalLinkAlt,
+  faArrowCircleRight,
+  faSpinner,
+);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 /* eslint-disable no-new */

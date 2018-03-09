@@ -22,12 +22,18 @@
           <br />
         </span>
         <span v-if="trains.length === 0" v-for="index in 3" :key="index">
-          <font-awesome-icon icon="train" /> ... <br />
+          <font-awesome-icon icon="train" />
+            &nbsp;<span class="grey"><font-awesome-icon icon="spinner" pulse /></span><br />
         </span>
         </p>
         <hr />
         <h3><font-awesome-icon :icon="['fab', 'google']" /> Google Maps</h3>
-        <p><font-awesome-icon icon="car" /> <b>{{ carDuration || '...' }}</b> min
+        <p><font-awesome-icon icon="car" />
+          <span v-if="carDuration"><b>{{ carDuration }}</b></span>
+          <span v-if="!carDuration">
+            &nbsp;<span class="grey"><font-awesome-icon icon="spinner" pulse /></span>
+          </span>
+          min
         <a :href="gmapsUrl" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
         </p>
       </div>
