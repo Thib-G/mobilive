@@ -10,7 +10,7 @@
         <v-marker :lat-lng="bxlCentralLatLng" @l-add="onRealMarkerAdd">
           <v-popup :content="`Brussel Centraal<br />Bruxelles Central`" />
         </v-marker>
-        <template v-for="station in stationsWithText">
+        <template v-for="station in stations">
           <mobi-live-marker :station="station" :key="station.name" />
         </template>
       </v-map>
@@ -37,14 +37,6 @@ export default {
       bxlCentralLatLng: [50.84551, 4.35684],
       stations,
     };
-  },
-  computed: {
-    stationsWithText() {
-      return stations.map((station) => {
-        const popupContent = `<p>${station.name}</p>`;
-        return Object.assign({}, station, { popupContent });
-      });
-    },
   },
   methods: {
     onRealMarkerAdd(e) {
