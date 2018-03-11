@@ -1,8 +1,9 @@
 # Mobilive
 
-> Mobilive: live travel times from main Belgian stations to Brussel Central
+> Mobilive: live travel times from main Belgian stations to Brussel Central, using iRail API and Google Maps DistanceMatrix API. Inspired by [MobiPulse](https://mobipulse.infrabel.be).
 
-Demo: https://mobilive.maww.be/
+ * [Demo](https://mobilive.maww.be/)
+ * [Making of](https://blog.maww.be/2018/03/11/mobilive-making-of/)
 
 ## Build Setup
 
