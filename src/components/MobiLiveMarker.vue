@@ -1,9 +1,9 @@
 <template>
-  <v-marker
+  <l-marker
     :key="theStation.name"
     :lat-lng="theStation.latlng"
-    @l-popupopen="getTimes">
-    <v-popup>
+    @popupopen="getTimes">
+    <l-popup>
       <div class="mobilive-popup">
         <h4>{{ theStation.name }}
         <br />&nbsp;&nbsp;<span class="grey">
@@ -14,21 +14,29 @@
           iRail
         </h3>
         <p>
-        <span v-if="trains.length > 0" v-for="train in trains" :key="train.uri">
-          <font-awesome-icon icon="train" /> <b>{{ train.duration }}</b> min
-          @ {{ train.departure.toFormat('H:mm') }}
-          <small><span class="grey">{{ train.nr }}</span></small>
-          <a :href="train.uri" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
-          <br />
-        </span>
-        <span v-if="trains.length === 0" v-for="index in 3" :key="index">
-          <font-awesome-icon icon="train" />
-            &nbsp;<span class="grey"><font-awesome-icon icon="spinner" pulse /></span><br />
-        </span>
+          <template v-if="trains.length > 0">
+            <span v-for="train in trains" :key="train.uri">
+              <font-awesome-icon icon="train" />&nbsp;<b>{{ train.duration }}</b> min
+              @ {{ train.departure.toFormat('H:mm') }}
+              <small><span class="grey">{{ train.nr }}</span></small>
+              &nbsp;<a :href="train.uri" target="_blank">
+                <font-awesome-icon icon="external-link-alt" />
+              </a>
+              <br />
+            </span>
+          </template>
+          <template v-if="trains.length === 0">
+            <span v-for="index in 3" :key="index">
+              <font-awesome-icon icon="train" />
+                &nbsp;<span class="grey">
+                  <font-awesome-icon icon="spinner" pulse />
+                </span><br />
+            </span>
+          </template>
         </p>
         <hr />
         <h3><font-awesome-icon :icon="['fab', 'google']" /> Google Maps</h3>
-        <p><font-awesome-icon icon="car" />
+        <p><font-awesome-icon icon="car" />&nbsp;
           <span v-if="carDuration"><b>{{ carDuration }}</b></span>
           <span v-if="!carDuration">
             &nbsp;<span class="grey"><font-awesome-icon icon="spinner" pulse /></span>
@@ -37,12 +45,12 @@
         <a :href="gmapsUrl" target="_blank"><font-awesome-icon icon="external-link-alt" /></a>
         </p>
       </div>
-    </v-popup>
-  </v-marker>
+    </l-popup>
+  </l-marker>
 </template>
 
 <script>
-import Vue2Leaflet from 'vue2-leaflet';
+import { LMarker, LPopup } from 'vue2-leaflet';
 import { DateTime } from 'luxon';
 
 import IRailService from '@/services/irail-service';
@@ -103,8 +111,8 @@ export default {
     },
   },
   components: {
-    'v-marker': Vue2Leaflet.Marker,
-    'v-popup': Vue2Leaflet.Popup,
+    LMarker,
+    LPopup,
   },
 };
 </script>
