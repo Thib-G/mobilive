@@ -1,30 +1,32 @@
 <template>
   <div class="map-wrapper">
     <div class="map" ref="map">
-      <v-map :zoom="8" :center="belgiumCenterLatLng">
-        <v-tilelayer
+      <l-map :zoom="8" :center="belgiumCenterLatLng">
+        <l-tile-layer
           :url="`https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=${accessToken}`"
           attribution='&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>
           &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
-          &copy; Google API Services &copy; <a href="https://irail.be">iRail</a>'></v-tilelayer>
-        <v-marker :lat-lng="bxlCentralLatLng" @l-add="onRealMarkerAdd">
-          <v-popup :content="`Brussel Centraal<br />Bruxelles Central`" />
-        </v-marker>
+          &copy; Google API Services &copy; <a href="https://irail.be">iRail</a>'></l-tile-layer>
+        <l-marker :lat-lng="bxlCentralLatLng" @l-add="onRealMarkerAdd">
+          <l-popup :content="`Brussel Centraal<br />Bruxelles Central`" />
+        </l-marker>
         <template v-for="station in stations">
           <mobi-live-marker :station="station" :key="station.name" />
         </template>
-      </v-map>
+      </l-map>
     </div>
   </div>
 </template>
 
 <script>
-import Vue2Leaflet from 'vue2-leaflet';
+import {
+  LMap, LTileLayer, LMarker, LPopup,
+} from 'vue2-leaflet';
 
 import stations from '@/assets/stations';
 import { mapboxKey } from '@/assets/keys';
 
-import MobiLiveMarker from '@/components/MobiLiveMarker';
+import MobiLiveMarker from '@/components/MobiLiveMarker.vue';
 
 const accessToken = mapboxKey;
 
@@ -44,10 +46,10 @@ export default {
     },
   },
   components: {
-    'v-map': Vue2Leaflet.Map,
-    'v-tilelayer': Vue2Leaflet.TileLayer,
-    'v-marker': Vue2Leaflet.Marker,
-    'v-popup': Vue2Leaflet.Popup,
+    LMap,
+    LTileLayer,
+    LMarker,
+    LPopup,
     'mobi-live-marker': MobiLiveMarker,
   },
 };
