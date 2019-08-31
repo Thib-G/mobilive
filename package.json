@@ -1,6 +1,8 @@
 {
-  "name": "mobilive-new",
-  "version": "0.1.0",
+  "name": "mobilive",
+  "version": "1.0.0",
+  "description": "MobiLive",
+  "author": "Thib",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
