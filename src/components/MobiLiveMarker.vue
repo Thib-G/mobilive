@@ -10,7 +10,7 @@
         <font-awesome-icon icon="arrow-circle-right" /> Brussel-Central</span></h4>
         <hr />
         <h3>
-          <img class="svg-inline--fa fa-lg" src="static/img/irail-logo.svg" alt="iRail logo" />
+          <img class="svg-inline--fa fa-lg" src="img/irail-logo.svg" alt="iRail logo" />
           iRail
         </h3>
         <p>
