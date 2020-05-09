@@ -1,2 +1,3 @@
+npm run build
 scp -P 2222 -r ./dist user@host:~/tmp/mobilive.maww.be
 ssh user@host -p 2222 "chmod -R u+rw-x,go+r-wx,ugo+X ~/tmp/mobilive.maww.be && rm -r -f /var/www/mobilive.maww.be/public_html/* && mv ~/tmp/mobilive.maww.be/* /var/www/mobilive.maww.be/public_html && rm -r ~/tmp/mobilive.maww.be && exit"
